@@ -1,0 +1,66 @@
+
+Options -Indexes
+
+<FilesMatch "(\.env|\.ini|\.log|\.bak|\.backup|\.sql|\.sqlite|\.db|\.config|composer\.json|composer\.lock|package\.json|package-lock\.json|\.git|\.htaccess)">
+    Require all denied
+</FilesMatch>
+
+<DirectoryMatch "/uploads/">
+    <FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|cgi)$">
+        Require all denied
+    </FilesMatch>
+</DirectoryMatch>
+
+
+
+<IfModule mod_headers.c>
+
+    Header unset X-Powered-By
+
+    Header always set X-Content-Type-Options "nosniff"
+
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    Header always set X-XSS-Protection "1; mode=block"
+
+
+</IfModule>
+
+
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+RewriteRule "(^|/)\." - [F,L]
+
+
+RewriteCond %{HTTP_USER_AGENT} ^$
+RewriteRule .* - [F,L]
+
+RewriteCond %{REQUEST_URI} \.(bak|old|backup|sql|zip|tar|gz)$ [NC]
+RewriteRule .* - [F,L]
+
+
+</IfModule>
+
+<IfModule mod_expires.c>
+
+ExpiresActive On
+
+ExpiresByType text/css "access plus 1 month"
+ExpiresByType application/javascript "access plus 1 month"
+ExpiresByType image/png "access plus 6 months"
+ExpiresByType image/jpeg "access plus 6 months"
+ExpiresByType image/svg+xml "access plus 6 months"
+
+</IfModule>
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.fontcdn.ir https://v1.fontapi.ir https://cdnjs.cloudflare.com; font-src 'self' https://cdn.fontcdn.ir https://v1.fontapi.ir https://cdnjs.cloudflare.com; img-src 'self' https://placehold.co data:; connect-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'self';"

@@ -1,0 +1,543 @@
+<?php
+
+include "backend/visitor/tracker.php";
+
+?>
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>سروش صالحی | SoroDev — توسعه‌دهنده وب و سازنده محصولات هوش مصنوعی</title>
+
+    <meta name="description" content="سروش صالحی — توسعه‌دهنده وب، برنامه‌نویس و سازنده محصولات هوش مصنوعی. طراحی و توسعه تجربه‌های دیجیتال با SoroDev.">
+
+    <meta name="keywords" content="SoroDev, Soroush Salehi, Web Developer, AI Creator, برنامه نویس, توسعه دهنده وب, هوش مصنوعی">
+
+    <meta name="author" content="Soroush Salehi">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://sorodev.ir/">
+
+    <link rel="icon" type="image/png" href="/Images/favicon.png">
+
+    <meta property="og:title" content="SoroDev | Soroush Salehi — Developer & AI Creator">
+
+    <meta property="og:description" content="سروش صالحی — توسعه‌دهنده وب، برنامه‌نویس و سازنده محصولات هوش مصنوعی.">
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:url" content="https://sorodev.ir/">
+
+    <meta property="og:image" content="https://sorodev.ir/Images/profiles.png">
+
+    <meta http-equiv="content-language" content="fa">
+
+<link rel="preload" 
+      href="/Fonts/Vazirmatn-Regular.woff2" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="responsive.css">
+
+    <link rel="stylesheet" href="animations.css">
+
+
+</head>
+<body>
+
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <span class="loader-logo">
+        <span class="logo-soro">Soro</span><span class="logo-dev">Dev</span>
+      </span>
+      <div class="loader-bar">
+        <div class="loader-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+
+      <a href="#home" class="logo" aria-label="بازگشت به صفحه اصلی">
+        <span class="logo-soro">Soro</span><span class="logo-dev">Dev</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active" data-nav="home">خانه</a></li>
+          <li><a href="#about" class="nav-link" data-nav="about">درباره من</a></li>
+          <li><a href="#skills" class="nav-link" data-nav="skills">مهارت‌ها</a></li>
+          <li><a href="#experience" class="nav-link" data-nav="experience">تجربه</a></li>
+          <li><a href="#projects" class="nav-link" data-nav="projects">پروژه‌ها</a></li>
+          <li><a href="#contact" class="nav-link" data-nav="contact">تماس</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="تغییر حالت روشن و تاریک">
+          <i class="fa-solid fa-moon icon-moon"></i>
+          <i class="fa-solid fa-sun icon-sun"></i>
+        </button>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="باز کردن منو" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+
+        <div class="hero-content">
+          <span class="badge">
+            <span class="badge-emoji">🚀</span>
+توسعه‌دهنده وب و خالق راهکارهای هوش مصنوعی
+          </span>
+
+          <h1 class="hero-title">
+            ساخت تجربه‌های دیجیتال
+            <span class="hero-title-accent">با سروش صالحی
+            </span>
+          </h1>
+
+          <div class="typing-wrap">
+            <span id="typingText" class="typing-text"></span>
+            <span class="typing-cursor">|</span>
+          </div>
+
+          <p class="hero-desc">
+طراحی و توسعه وب‌سایت‌های مدرن با تمرکز بر زیبایی، سرعت و تجربه کاربری.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">مشاهده پروژه‌ها</a>
+            <a href="#contact" class="btn btn-outline">شروع همکاری</a>
+          </div>
+
+<div class="hero-socials">
+
+    <a 
+      href="https://github.com/soroush-salehi" 
+      class="social-icon" 
+      aria-label="گیت‌هاب" 
+      target="_blank" 
+      rel="noopener">
+      <i class="fa-brands fa-github"></i>
+    </a>
+
+
+    <a 
+      href="https://www.linkedin.com/in/soroush-salehi89/" 
+      class="social-icon" 
+      aria-label="لینکدین" 
+      target="_blank" 
+      rel="noopener">
+      <i class="fa-brands fa-linkedin"></i>
+    </a>
+
+
+    <a 
+      href="https://www.instagram.com/sorodev89/" 
+      class="social-icon" 
+      aria-label="اینستاگرام" 
+      target="_blank" 
+      rel="noopener">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+
+
+</div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-glow"></div>
+          <div class="hero-avatar-wrap">
+            <img
+              src="Images/profile.jpg"
+              alt="تصویر پروفایل سروش صالحی"
+              class="hero-avatar"
+              loading="lazy"
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <a href="#about" class="scroll-indicator" aria-label="اسکرول به پایین">
+        <i class="fa-solid fa-chevron-down"></i>
+      </a>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container">
+
+        <div class="section-head reveal" data-reveal>
+          <span class="eyebrow">درباره من</span>
+          <h2 class="section-title">کمی درباره‌ی من بدانید</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card glass reveal" data-reveal>
+            <p class="about-text">
+            من سروش صالحی هستم، یک توسعه‌دهنده وب و علاقه‌مند به دنیای فناوری، برنامه‌نویسی و هوش مصنوعی. من از شهر ایذه در استان خوزستان فعالیت می‌کنم و مسیر خودم را با یادگیری، تجربه و ساخت محصولات دیجیتال آغاز کرده‌ام.
+
+همیشه تلاش می‌کنم با ترکیب خلاقیت، طراحی و کدنویسی، تجربه‌هایی مدرن، زیبا و کاربردی ایجاد کنم. علاقه من به تکنولوژی باعث شده همیشه به دنبال یادگیری فناوری‌های جدید باشم و هر پروژه را فرصتی برای رشد، بهتر شدن و خلق ایده‌های تازه ببینم.
+
+تمرکز من روی طراحی و توسعه وب‌سایت‌های حرفه‌ای، ساخت رابط‌های کاربری جذاب (UI)، تجربه کاربری بهتر (UX) و توسعه ابزارهای مبتنی بر هوش مصنوعی است. هدفم این است که محصولاتی بسازم که علاوه بر ظاهر زیبا، سریع، کاربردی و تاثیرگذار باشند.
+
+در SoroDev تلاش می‌کنم با استفاده از دانش برنامه‌نویسی و خلاقیت، راهکارهای دیجیتالی بسازم که بتوانند تجربه‌ای متفاوت برای کاربران ایجاد کنند و قدمی در مسیر آینده فناوری باشند.
+            </p>
+          </div>
+
+          <div class="about-stats">
+            <div class="stat-card glass reveal" data-reveal>
+              <span class="stat-number" data-count="2">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">پروژه</span>
+            </div>
+            <div class="stat-card glass reveal" data-reveal>
+              <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">تکنولوژی</span>
+            </div>
+            <div class="stat-card glass reveal" data-reveal>
+              <span class="stat-number" data-count="100">0</span><span class="stat-plus">%</span>
+              <span class="stat-label">انگیزه</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="tech" id="tech">
+      <div class="container">
+
+        <div class="section-head reveal" data-reveal>
+          <span class="eyebrow">ابزارها</span>
+          <h2 class="section-title">تکنولوژی‌هایی که با آن‌ها کار می‌کنم</h2>
+        </div>
+
+        <div class="tech-badges reveal" data-reveal>
+          <span class="tech-badge"><i class="fa-brands fa-html5"></i> HTML</span>
+          <span class="tech-badge"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+          <span class="tech-badge"><i class="fa-brands fa-js"></i> JavaScript</span>
+          <span class="tech-badge"><i class="fa-brands fa-python"></i> Python</span>
+          <span class="tech-badge"><i class="fa-solid fa-hashtag"></i> C#</span>
+          <span class="tech-badge"><i class="fa-solid fa-microchip"></i> AI</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <div class="container">
+
+        <div class="section-head reveal" data-reveal>
+          <span class="eyebrow">مهارت‌ها</span>
+          <h2 class="section-title">سطح تسلط من روی هر تکنولوژی</h2>
+        </div>
+
+        <div class="skills-list">
+          <div class="skill-item reveal" data-reveal>
+            <div class="skill-top">
+              <span class="skill-name">HTML</span>
+              <span class="skill-percent">95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" data-percent="95"></div>
+            </div>
+          </div>
+
+          <div class="skill-item reveal" data-reveal>
+            <div class="skill-top">
+              <span class="skill-name">CSS</span>
+              <span class="skill-percent">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" data-percent="90"></div>
+            </div>
+          </div>
+
+          <div class="skill-item reveal" data-reveal>
+            <div class="skill-top">
+              <span class="skill-name">JavaScript</span>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" data-percent="85"></div>
+            </div>
+          </div>
+
+
+          <div class="skill-item reveal" data-reveal>
+            <div class="skill-top">
+              <span class="skill-name">Python</span>
+              <span class="skill-percent">40%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" data-percent="40"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="experience" id="experience">
+      <div class="container">
+
+        <div class="section-head reveal" data-reveal>
+          <span class="eyebrow">مسیر من</span>
+          <h2 class="section-title">تجربه و مسیر یادگیری</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item reveal" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content glass">
+              <h3 class="timeline-title">شروع برنامه‌نویسی</h3>
+              <p class="timeline-desc">HTML / CSS / JS</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content glass">
+              <h3 class="timeline-title">توسعه پروژه‌ها</h3>
+              <p class="timeline-desc">C# و Python</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content glass">
+              <h3 class="timeline-title">هوش مصنوعی</h3>
+              <p class="timeline-desc">ساخت ابزارهای AI</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="container">
+
+        <div class="section-head reveal" data-reveal>
+          <span class="eyebrow">نمونه کارها</span>
+          <h2 class="section-title">پروژه‌های اخیر من</h2>
+        </div>
+
+        <div class="projects-grid">
+
+          <article class="project-card glass reveal" data-reveal>
+            <div class="project-image">
+              <img src="https://placehold.co/600x400/06B6D4/ffffff?text=SoroDev" alt="تصویر پروژه SoroDev Website" loading="lazy">
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">SoroDev Website</h3>
+              <p class="project-desc">وبسایت شخصی مدرن</p>
+              <a href="https://www.sorodev.ir/" class="btn btn-sm btn-outline">مشاهده پروژه</a>
+            </div>
+          </article>
+
+          <article class="project-card glass reveal" data-reveal>
+            <div class="project-image">
+              <img src="https://placehold.co/600x400/020617/ffffff?text=SoroAI+Studio" alt="تصویر پروژه Web Apps" loading="lazy">
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">SoroAI Studio</h3>
+              <p class="project-desc">پلتفرم ابزارهای هوش مصنوعی برای کاربران فارسی‌زبان</p>
+              <a href="#" class="btn btn-sm btn-outline">مشاهده پروژه</a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+
+        <div class="section-head reveal" data-reveal>
+          <span class="eyebrow">پرسش و پاسخ</span>
+          <h2 class="section-title">سوالات رایج</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item glass">
+            <button class="faq-question" aria-expanded="false">
+              <span>چه نوع پروژه‌هایی انجام می‌دهید؟</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>ساخت وبسایت‌های شخصی و شرکتی، اپلیکیشن‌های تحت وب. </p>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <button class="faq-question" aria-expanded="false">
+              <span>مدت زمان انجام یک پروژه معمولی چقدر است؟</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>بسته به پیچیدگی پروژه، معمولاً بین چند روز تا چند هفته زمان می‌برد.</p>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <button class="faq-question" aria-expanded="false">
+              <span>آیا امکان همکاری از راه دور وجود دارد؟</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>بله، تمام همکاری‌ها به صورت آنلاین و ریموت انجام می‌شود.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+<section class="contact" id="contact">
+
+  <div class="container">
+
+
+    <div class="section-head reveal" data-reveal>
+
+      <span class="eyebrow">
+        تماس با من
+      </span>
+
+
+      <h2 class="section-title">
+        بیایید با هم همکاری کنیم
+      </h2>
+
+    </div>
+
+
+
+    <form 
+      class="contact-form glass reveal" 
+      data-reveal 
+      id="contactForm"
+    >
+
+
+      <div class="form-group">
+
+        <label for="name">
+          نام
+        </label>
+
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          placeholder="نام شما"
+          required
+        >
+
+      </div>
+
+
+
+
+      <div class="form-group">
+
+        <label for="email">
+          ایمیل
+        </label>
+
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="ایمیل شما"
+          required
+        >
+
+      </div>
+
+
+
+
+      <div class="form-group">
+
+        <label for="message">
+          پیام
+        </label>
+
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="5" 
+          placeholder="پیام خود را بنویسید..."
+          required
+        ></textarea>
+
+      </div>
+
+
+
+
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-full"
+      >
+        ارسال پیام
+      </button>
+
+
+
+      <p id="formStatus" class="form-status"></p>
+
+
+
+    </form>
+
+
+  </div>
+
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="logo-soro">Soro</span><span class="logo-dev">Dev</span>
+      </div>
+      <p class="footer-tagline">Build Future With Code 🚀</p>
+      <p class="footer-copy">© 2026 SoroDev — Soroush Salehi</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="بازگشت به بالای صفحه">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

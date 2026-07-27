@@ -1,0 +1,199 @@
+/* =====================================================
+   SoroDev — responsive.css
+   قوانین ریسپانسیو
+   بریک‌پوینت‌ها: ۱۰۲۴ (تبلت) / ۷۶۸ (موبایل بزرگ) / ۴۸۰ (موبایل کوچک)
+===================================================== */
+
+/* -----------------------------------------------------
+   Tablet — تا ۱۰۲۴px
+----------------------------------------------------- */
+@media (max-width: 1024px) {
+
+  :root {
+    --fs-hero: 2.75rem;
+    --fs-3xl: 2.25rem;
+    --space-2xl: 4.5rem;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-content { order: 2; }
+  .hero-visual { order: 1; }
+
+  .hero-actions,
+  .hero-socials {
+    justify-content: center;
+  }
+
+  .hero-desc { margin-inline: auto; }
+
+  .hero-avatar-wrap { width: 260px; height: 260px; }
+  .hero-glow { width: 280px; height: 280px; }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* -----------------------------------------------------
+   Mobile — تا ۷۶۸px
+----------------------------------------------------- */
+@media (max-width: 768px) {
+
+  :root {
+    --fs-hero: 2.1rem;
+    --fs-2xl: 1.6rem;
+    --fs-3xl: 1.9rem;
+    --fs-xl: 1.25rem;
+    --space-xl: 3rem;
+    --space-2xl: 3.5rem;
+    --header-height: 68px;
+  }
+
+  .container { padding-inline: var(--space-sm); }
+
+  /* --- منوی موبایل --- */
+  .mobile-menu-btn { display: flex; }
+
+  .main-nav {
+    position: fixed;
+    top: 0;
+    inset-inline-end: 0;
+    height: 100vh;
+    width: min(78vw, 320px);
+    background: var(--bg-glass);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border-inline-start: 1px solid var(--border-glass);
+    box-shadow: -10px 0 30px hsl(var(--shadow-color) / 0.15);
+    z-index: 999;
+    transform: translateX(100%);
+    transition: transform var(--transition-smooth);
+    display: flex;
+    align-items: center;
+  }
+
+  [dir="rtl"] .main-nav { transform: translateX(-100%); }
+
+  .main-nav.open {
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    padding: var(--space-xl) var(--space-lg);
+    width: 100%;
+  }
+
+  .nav-link { font-size: var(--fs-lg); }
+
+  /* تبدیل آیکون همبرگر به ضربدر */
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* --- هیرو --- */
+  .hero-title { font-size: var(--fs-hero); }
+  .hero-avatar-wrap { width: 210px; height: 210px; }
+  .hero-glow { width: 220px; height: 220px; }
+
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { width: 100%; }
+
+  /* --- سکشن‌های عمومی --- */
+  section { padding-block: var(--space-xl); }
+
+  .section-title { font-size: var(--fs-2xl); }
+
+  /* --- درباره من --- */
+  .about-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-card { padding: var(--space-md); }
+
+  /* --- تکنولوژی --- */
+  .tech-badge { padding: 0.55rem 1.1rem; font-size: var(--fs-xs); }
+
+  /* --- پروژه‌ها --- */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- تایم‌لاین --- */
+  .timeline {
+    padding-inline-start: var(--space-md);
+  }
+
+  .timeline-dot {
+    inset-inline-start: calc(-1 * var(--space-md) - 6px);
+  }
+
+  /* --- فرم تماس --- */
+  .contact-form { padding: var(--space-md); }
+
+  /* --- دکمه بازگشت به بالا --- */
+  .back-to-top {
+    width: 42px;
+    height: 42px;
+    bottom: var(--space-sm);
+    inset-inline-end: var(--space-sm);
+  }
+}
+
+/* -----------------------------------------------------
+   Small Mobile — تا ۴۸۰px
+----------------------------------------------------- */
+@media (max-width: 480px) {
+
+  :root {
+    --fs-hero: 1.75rem;
+    --fs-xl: 1.1rem;
+    --fs-lg: 1.05rem;
+  }
+
+  .logo { font-size: var(--fs-lg); }
+
+  .badge { font-size: var(--fs-xs); padding: 0.4rem 0.9rem; }
+
+  .hero-avatar-wrap { width: 170px; height: 170px; }
+  .hero-glow { width: 190px; height: 190px; }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card { padding: var(--space-sm); }
+
+  .tech-badges { gap: 0.6rem; }
+
+  .faq-question { font-size: var(--fs-sm); padding: var(--space-sm); }
+
+  .footer-logo { font-size: var(--fs-xl); }
+}
+
+/* -----------------------------------------------------
+   قفل اسکرول بدنه هنگام باز بودن منوی موبایل
+----------------------------------------------------- */
+body.nav-open {
+  overflow: hidden;
+}
