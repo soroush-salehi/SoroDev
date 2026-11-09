@@ -862,3 +862,29 @@ section {
     font-weight:700;
     font-size:15px;
 }
+
+/* Language selector — matches the original SoroDev header */
+.language-switcher select {
+  appearance: none;
+  min-width: 58px;
+  padding: 9px 11px;
+  border: 1px solid var(--border-color, rgba(100, 116, 139, .25));
+  border-radius: 10px;
+  background: var(--card-bg, rgba(255,255,255,.06));
+  color: inherit;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .2s ease, background .2s ease;
+}
+.language-switcher select:hover,
+.language-switcher select:focus-visible {
+  border-color: var(--primary-color, #06b6d4);
+}
+[dir="ltr"] body { text-align: left; }
+[dir="ltr"] .hero-title-accent { direction: ltr; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
