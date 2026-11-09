@@ -1,528 +1,134 @@
-/* =====================================================
-   SoroDev — script.js
-   تمام رفتارهای تعاملی سایت
-   ساختار: هر ویژگی داخل یک تابع مجزا + یک نقطه‌ی اجرای واحد در پایین فایل
-===================================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  /* -----------------------------------------------------
-     1) Page Loader
-     وقتی صفحه کامل لود شد، لودر با فید محو می‌شود
-     و کلاس page-ready روی body اضافه می‌شود تا انیمیشن
-     ورود Hero (در animations.css) اجرا شود.
-  ----------------------------------------------------- */
-  function initLoader() {
-    const loader = document.getElementById('loader');
-    const barFill = loader ? loader.querySelector('.loader-bar-fill') : null;
-
-    if (barFill) {
-      requestAnimationFrame(() => {
-        barFill.style.transition = 'width 0.8s ease';
-        barFill.style.width = '100%';
-      });
+(() => {
+  const translations = {
+    en: {
+      navAbout:"About",navSkills:"Skills",navProjects:"Projects",navContact:"Contact",
+      availability:"Building things for the web",heroKicker:"INDEPENDENT DEVELOPER · CREATOR",heroLineOne:"Ideas into",heroLineTwo:"digital experiences.",
+      heroDescription:"I'm Soroush — a developer focused on crafting clean interfaces, useful products and thoughtful experiences with code.",
+      exploreWork:"Explore my work",letsTalk:"Let's talk",portraitRole:"Developer & Creator",visualCaption:"Curiosity, crafted into code.",scrollHint:"SCROLL TO EXPLORE",
+      aboutIndex:"THE PERSON",aboutTitle:"Curious by nature.<br><span class='muted-title'>Driven by creation.</span>",aboutLead:"I enjoy turning complex ideas into simple, useful and memorable digital experiences.",
+      aboutText:"I'm Soroush Salehi, the person behind SoroDev. I explore web development, software and emerging technologies by learning, experimenting and building real projects. My focus is thoughtful design, accessible interfaces and fast, dependable experiences.",
+      githubProfile:"View GitHub profile",principleOne:"Clarity over noise",principleTwo:"Useful by design",principleThree:"Always learning",
+      skillsIndex:"THE TOOLKIT",skillsTitle:"Tools I use to<br><span class='muted-title'>bring ideas to life.</span>",skillsNote:"A growing toolkit for designing, developing and shipping digital products.",
+      projectsIndex:"SELECTED WORK",projectsTitle:"A few things<br><span class='muted-title'>I've been building.</span>",projectsNote:"A selection of experiments and products from my GitHub workspace.",
+      projectSoroDev:"A personal space for my work, ideas and experiments — designed around clarity and craft.",
+      projectSoroStudy:"A student-first learning workspace with practical tools for focus, planning and study.",
+      projectSoroAI:"An evolving collection of experiments exploring useful AI-powered experiences.",
+      projectSoroCloud:"A project exploring cloud-oriented tools and streamlined digital workflows.",
+      allProjects:"Explore all repositories",contactIndex:"GET IN TOUCH",contactTitle:"Have an idea?<br><span class='muted-title'>Let's make it real.</span>",
+      contactText:"For project ideas, questions or just a good conversation about technology, feel free to reach out.",footerLine:"Designed with intent. Built with curiosity."
+    },
+    fa: {
+      navAbout:"درباره من",navSkills:"مهارت‌ها",navProjects:"پروژه‌ها",navContact:"ارتباط",
+      availability:"در حال ساخت تجربه‌های وب",heroKicker:"توسعه‌دهنده مستقل · سازنده",heroLineOne:"ایده‌ها را به",heroLineTwo:"تجربه‌های دیجیتال تبدیل می‌کنم.",
+      heroDescription:"من سروش هستم؛ توسعه‌دهنده‌ای علاقه‌مند به ساخت رابط‌های تمیز، محصولات کاربردی و تجربه‌های دقیق با کمک کدنویسی.",
+      exploreWork:"دیدن پروژه‌ها",letsTalk:"ارتباط با من",portraitRole:"توسعه‌دهنده و سازنده",visualCaption:"کنجکاوی، تبدیل‌شده به کد.",scrollHint:"برای کاوش اسکرول کنید",
+      aboutIndex:"درباره من",aboutTitle:"کنجکاو در ذات.<br><span class='muted-title'>مشتاق خلق کردن.</span>",aboutLead:"از تبدیل ایده‌های پیچیده به تجربه‌های دیجیتال ساده، کاربردی و ماندگار لذت می‌برم.",
+      aboutText:"من سروش صالحی، سازنده SoroDev هستم. با یادگیری، آزمایش و ساخت پروژه‌های واقعی، توسعه وب، نرم‌افزار و فناوری‌های نو را دنبال می‌کنم. تمرکز من بر طراحی سنجیده، رابط‌های دسترس‌پذیر و تجربه‌های سریع و قابل‌اعتماد است.",
+      githubProfile:"مشاهده پروفایل گیت‌هاب",principleOne:"سادگی به‌جای شلوغی",principleTwo:"کاربردی از ابتدا",principleThree:"یادگیری همیشگی",
+      skillsIndex:"ابزارهای من",skillsTitle:"ابزارهایی برای<br><span class='muted-title'>جان دادن به ایده‌ها.</span>",skillsNote:"مجموعه‌ای رو‌به‌رشد از ابزارها برای طراحی، توسعه و انتشار محصولات دیجیتال.",
+      projectsIndex:"پروژه‌های منتخب",projectsTitle:"چند مورد از چیزهایی<br><span class='muted-title'>که ساخته‌ام.</span>",projectsNote:"منتخبی از پروژه‌ها و تجربه‌های موجود در فضای گیت‌هاب من.",
+      projectSoroDev:"فضایی شخصی برای نمایش کارها، ایده‌ها و آزمایش‌ها؛ با تمرکز بر سادگی و کیفیت.",
+      projectSoroStudy:"فضایی آموزشی با محوریت دانش‌آموز و ابزارهایی کاربردی برای تمرکز، برنامه‌ریزی و مطالعه.",
+      projectSoroAI:"مجموعه‌ای در حال توسعه از آزمایش‌ها برای ساخت تجربه‌های کاربردی مبتنی بر هوش مصنوعی.",
+      projectSoroCloud:"پروژه‌ای برای بررسی ابزارهای ابری و ساده‌تر کردن گردش‌کارهای دیجیتال.",
+      allProjects:"مشاهده همه مخزن‌ها",contactIndex:"در ارتباط باشیم",contactTitle:"ایده‌ای داری؟<br><span class='muted-title'>با هم واقعی‌اش کنیم.</span>",
+      contactText:"برای مطرح کردن ایده پروژه، پرسیدن سؤال یا گفت‌وگویی درباره فناوری، می‌توانی پیام بدهی.",footerLine:"با هدف طراحی شده؛ با کنجکاوی ساخته شده."
+    },
+    ru: {
+      navAbout:"Обо мне",navSkills:"Навыки",navProjects:"Проекты",navContact:"Контакты",
+      availability:"Создаю проекты для веба",heroKicker:"НЕЗАВИСИМЫЙ РАЗРАБОТЧИК · СОЗДАТЕЛЬ",heroLineOne:"Превращаю идеи",heroLineTwo:"в цифровой опыт.",
+      heroDescription:"Я Сoroush — разработчик, который создаёт понятные интерфейсы, полезные продукты и продуманный цифровой опыт с помощью кода.",
+      exploreWork:"Мои проекты",letsTalk:"Связаться",portraitRole:"Разработчик и создатель",visualCaption:"Любопытство, воплощённое в коде.",scrollHint:"ПРОКРУТИТЕ ВНИЗ",
+      aboutIndex:"ОБО МНЕ",aboutTitle:"Любознательность в основе.<br><span class='muted-title'>Стремление создавать.</span>",aboutLead:"Мне нравится превращать сложные идеи в простые, полезные и запоминающиеся цифровые решения.",
+      aboutText:"Я Соруш Салехи, создатель SoroDev. Я изучаю веб-разработку, программное обеспечение и новые технологии через обучение, эксперименты и реальные проекты. Мой фокус — продуманный дизайн, доступные интерфейсы и быстрые, надёжные решения.",
+      githubProfile:"Открыть профиль GitHub",principleOne:"Ясность вместо шума",principleTwo:"Практичность в основе",principleThree:"Постоянное обучение",
+      skillsIndex:"ИНСТРУМЕНТЫ",skillsTitle:"Инструменты, чтобы<br><span class='muted-title'>воплощать идеи.</span>",skillsNote:"Растущий набор инструментов для проектирования, разработки и запуска цифровых продуктов.",
+      projectsIndex:"ИЗБРАННЫЕ РАБОТЫ",projectsTitle:"Несколько проектов,<br><span class='muted-title'>над которыми я работаю.</span>",projectsNote:"Подборка экспериментов и продуктов из моего GitHub.",
+      projectSoroDev:"Личное пространство для моих работ, идей и экспериментов с акцентом на ясность и качество.",
+      projectSoroStudy:"Учебное пространство с практичными инструментами для концентрации, планирования и занятий.",
+      projectSoroAI:"Развивающаяся коллекция экспериментов с полезными возможностями на базе ИИ.",
+      projectSoroCloud:"Проект по изучению облачных инструментов и упрощению цифровых процессов.",
+      allProjects:"Все репозитории",contactIndex:"СВЯЗАТЬСЯ",contactTitle:"Есть идея?<br><span class='muted-title'>Давайте воплотим её.</span>",
+      contactText:"Буду рад сообщениям с идеями проектов, вопросами или просто интересным разговором о технологиях.",footerLine:"Продумано с целью. Создано из любопытства."
     }
+  };
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        if (loader) loader.classList.add('loaded');
-        document.body.classList.add('page-ready');
-      }, 500);
+  const html = document.documentElement;
+  const body = document.body;
+  const langButtons = document.querySelectorAll("[data-lang]");
+  const savedLanguage = (() => { try { return localStorage.getItem("sorodev-language"); } catch (_) { return null; } })();
+  const supported = ["en", "fa", "ru"];
+  const initialLanguage = supported.includes(savedLanguage) ? savedLanguage : "en";
+
+  function setLanguage(language) {
+    const dictionary = translations[language] || translations.en;
+    html.lang = language;
+    html.dir = language === "fa" ? "rtl" : "ltr";
+    body.dir = html.dir;
+    document.title = language === "fa" ? "SoroDev — سروش صالحی | توسعه‌دهنده" : language === "ru" ? "SoroDev — Соруш Салехи | Разработчик" : "SoroDev — Soroush Salehi | Developer & Creator";
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const value = dictionary[element.dataset.i18n];
+      if (typeof value === "string") element.innerHTML = value;
     });
-
-    // Fallback: اگر رویداد load به هر دلیلی دیر شد، حداکثر بعد از ۲.۵ ثانیه ادامه بده
-    setTimeout(() => {
-      if (loader && !loader.classList.contains('loaded')) {
-        loader.classList.add('loaded');
-        document.body.classList.add('page-ready');
-      }
-    }, 2500);
+    langButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.lang === language)));
+    try { localStorage.setItem("sorodev-language", language); } catch (_) {}
   }
 
-  /* -----------------------------------------------------
-     2) Dark / Light Mode با ذخیره در LocalStorage
-  ----------------------------------------------------- */
-  function initThemeToggle() {
-    const root = document.documentElement;
-    const toggleBtn = document.getElementById('themeToggle');
-    const STORAGE_KEY = 'sorodev-theme';
+  langButtons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+  setLanguage(initialLanguage);
 
-    const savedTheme = localStorage.getItem(STORAGE_KEY);
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-      root.setAttribute('data-theme', savedTheme);
-    } else if (prefersDark) {
-      root.setAttribute('data-theme', 'dark');
-    }
-
-    if (!toggleBtn) return;
-
-    toggleBtn.addEventListener('click', () => {
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      const nextTheme = isDark ? 'light' : 'dark';
-      root.setAttribute('data-theme', nextTheme);
-      localStorage.setItem(STORAGE_KEY, nextTheme);
-    });
+  const menuToggle = document.getElementById("menuToggle");
+  const mainNav = document.getElementById("mainNav");
+  function closeMenu() {
+    menuToggle.classList.remove("active");
+    mainNav.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
   }
+  menuToggle.addEventListener("click", () => {
+    const open = !mainNav.classList.contains("open");
+    menuToggle.classList.toggle("active", open);
+    mainNav.classList.toggle("open", open);
+    menuToggle.setAttribute("aria-expanded", String(open));
+  });
+  mainNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
 
-  /* -----------------------------------------------------
-     3) هدر: تغییر ظاهر هنگام اسکرول
-  ----------------------------------------------------- */
-  function initHeaderScroll() {
-    const header = document.getElementById('siteHeader');
-    if (!header) return;
+  const themeToggle = document.getElementById("themeToggle");
+  let lightMode = false;
+  try { lightMode = localStorage.getItem("sorodev-theme") === "light"; } catch (_) {}
+  body.classList.toggle("light", lightMode);
+  themeToggle.addEventListener("click", () => {
+    lightMode = !lightMode;
+    body.classList.toggle("light", lightMode);
+    try { localStorage.setItem("sorodev-theme", lightMode ? "light" : "dark"); } catch (_) {}
+  });
 
-    const updateHeader = () => {
-      if (window.scrollY > 20) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    };
-
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
+  const header = document.getElementById("siteHeader");
+  const progress = document.getElementById("scrollProgress");
+  const backToTop = document.getElementById("backToTop");
+  function updateScrollUI() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const amount = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    progress.style.width = amount + "%";
+    header.classList.toggle("scrolled", window.scrollY > 12);
+    backToTop.classList.toggle("visible", window.scrollY > 500);
   }
+  window.addEventListener("scroll", updateScrollUI, { passive: true });
+  updateScrollUI();
+  backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-  /* -----------------------------------------------------
-     4) منوی موبایل
-  ----------------------------------------------------- */
-  function initMobileMenu() {
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const nav = document.getElementById('mainNav');
-    const overlay = document.getElementById('navOverlay');
-    if (!menuBtn || !nav || !overlay) return;
-
-    function openMenu() {
-      nav.classList.add('open');
-      overlay.classList.add('active');
-      menuBtn.classList.add('active');
-      menuBtn.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('nav-open');
-    }
-
-    function closeMenu() {
-      nav.classList.remove('open');
-      overlay.classList.remove('active');
-      menuBtn.classList.remove('active');
-      menuBtn.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
-    }
-
-    menuBtn.addEventListener('click', () => {
-      const isOpen = nav.classList.contains('open');
-      isOpen ? closeMenu() : openMenu();
-    });
-
-    overlay.addEventListener('click', closeMenu);
-
-    // بستن منو با کلیک روی هر لینک (تجربه‌ی کاربری بهتر در موبایل)
-    nav.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
-
-    // بستن منو با کلید Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
-    });
-  }
-
-  /* -----------------------------------------------------
-     5) لینک فعال ناوبری بر اساس بخش قابل‌مشاهده
-  ----------------------------------------------------- */
-  function initActiveNav() {
-    const sections = document.querySelectorAll('main section[id], .hero[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    if (!sections.length || !navLinks.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const id = entry.target.getAttribute('id');
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('data-nav') === id);
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-
-    sections.forEach(section => observer.observe(section));
-  }
-
-  /* -----------------------------------------------------
-     6) افکت تایپینگ در Hero
-  ----------------------------------------------------- */
-  function initTypingEffect() {
-    const el = document.getElementById('typingText');
-    if (!el) return;
-
-    const phrases = [
-      'توسعه‌دهنده وب',
-      'برنامه‌نویس جاوا اسکریپت'
-    ];
-
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    const TYPE_SPEED = 90;
-    const DELETE_SPEED = 45;
-    const PAUSE_AFTER_TYPE = 1400;
-    const PAUSE_AFTER_DELETE = 400;
-
-    function tick() {
-      const currentPhrase = phrases[phraseIndex];
-
-      if (!isDeleting) {
-        charIndex++;
-        el.textContent = currentPhrase.slice(0, charIndex);
-
-        if (charIndex === currentPhrase.length) {
-          isDeleting = true;
-          setTimeout(tick, PAUSE_AFTER_TYPE);
-          return;
-        }
-        setTimeout(tick, TYPE_SPEED);
-
-      } else {
-        charIndex--;
-        el.textContent = currentPhrase.slice(0, charIndex);
-
-        if (charIndex === 0) {
-          isDeleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          setTimeout(tick, PAUSE_AFTER_DELETE);
-          return;
-        }
-        setTimeout(tick, DELETE_SPEED);
-      }
-    }
-
-    tick();
-  }
-
-  /* -----------------------------------------------------
-     7) Scroll Reveal عمومی (تمام [data-reveal])
-  ----------------------------------------------------- */
-  function initScrollReveal() {
-    const items = document.querySelectorAll('[data-reveal]');
-    if (!items.length) return;
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
+  const revealElements = document.querySelectorAll(".section-heading,.intro-lead,.intro-detail,.principles,.skills-note,.skill-cloud,.projects-heading,.project-card,.all-projects-link,.contact-bottom");
+  revealElements.forEach((element) => element.setAttribute("data-reveal", ""));
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
+          entry.target.classList.add("is-visible");
+          currentObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
-
-    items.forEach(item => observer.observe(item));
+    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+    revealElements.forEach((element) => observer.observe(element));
+  } else {
+    revealElements.forEach((element) => element.classList.add("is-visible"));
   }
-
-  /* -----------------------------------------------------
-     8) Counter Animation (آمار بخش درباره‌ی من)
-  ----------------------------------------------------- */
-  function initCounters() {
-    const counters = document.querySelectorAll('.stat-number[data-count]');
-    if (!counters.length) return;
-
-    function animateCounter(el) {
-      const target = parseInt(el.getAttribute('data-count'), 10) || 0;
-      const duration = 1400;
-      const startTime = performance.now();
-
-      function step(now) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-        el.textContent = Math.round(eased * target);
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = target;
-        }
-      }
-
-      requestAnimationFrame(step);
-    }
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.6 });
-
-    counters.forEach(counter => observer.observe(counter));
-  }
-
-  /* -----------------------------------------------------
-     9) Progress Animation (نوار مهارت‌ها)
-  ----------------------------------------------------- */
-  function initSkillBars() {
-    const bars = document.querySelectorAll('.skill-bar-fill[data-percent]');
-    if (!bars.length) return;
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bar = entry.target;
-          const percent = bar.getAttribute('data-percent') || '0';
-          requestAnimationFrame(() => {
-            bar.style.width = percent + '%';
-          });
-          obs.unobserve(bar);
-        }
-      });
-    }, { threshold: 0.6 });
-
-    bars.forEach(bar => observer.observe(bar));
-  }
-
-  /* -----------------------------------------------------
-     10) FAQ Accordion
-  ----------------------------------------------------- */
-  function initFaq() {
-    const items = document.querySelectorAll('.faq-item');
-    if (!items.length) return;
-
-    items.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      const answer = item.querySelector('.faq-answer');
-      if (!question || !answer) return;
-
-      question.addEventListener('click', () => {
-        const isOpen = item.classList.contains('open');
-
-        // بستن بقیه‌ی آیتم‌ها (رفتار Accordion تک‌بازشو)
-        items.forEach(other => {
-          if (other !== item) {
-            other.classList.remove('open');
-            other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-            other.querySelector('.faq-answer').style.maxHeight = null;
-          }
-        });
-
-        if (isOpen) {
-          item.classList.remove('open');
-          question.setAttribute('aria-expanded', 'false');
-          answer.style.maxHeight = null;
-        } else {
-          item.classList.add('open');
-          question.setAttribute('aria-expanded', 'true');
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
-    });
-  }
-
-  /* -----------------------------------------------------
-     11) دکمه بازگشت به بالا
-  ----------------------------------------------------- */
-  function initBackToTop() {
-    const btn = document.getElementById('backToTop');
-    if (!btn) return;
-
-    window.addEventListener('scroll', () => {
-      btn.classList.toggle('visible', window.scrollY > 500);
-    }, { passive: true });
-
-    btn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  /* -----------------------------------------------------
-     12) Lazy Loading تصاویر (پشتیبانی/تقویت loading="lazy")
-  ----------------------------------------------------- */
-  function initLazyImages() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    if (!images.length) return;
-
-    if (!('IntersectionObserver' in window)) return; // مرورگر native خودش هندل می‌کند
-
-    images.forEach(img => {
-      img.style.opacity = '0';
-      img.style.transition = 'opacity 0.5s ease';
-    });
-
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const img = entry.target;
-
-        const reveal = () => { img.style.opacity = '1'; };
-        if (img.complete) {
-          reveal();
-        } else {
-          img.addEventListener('load', reveal, { once: true });
-        }
-        obs.unobserve(img);
-      });
-    }, { rootMargin: '100px' });
-
-    images.forEach(img => observer.observe(img));
-  }
-
-  /* -----------------------------------------------------
-     13) اسکرول نرم برای لینک‌های داخلی (پشتیبان CSS scroll-behavior)
-  ----------------------------------------------------- */
-  function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const targetId = link.getAttribute('href');
-        if (!targetId || targetId === '#') return;
-
-        const target = document.querySelector(targetId);
-        if (!target) return;
-
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  }
-
-  /* -----------------------------------------------------
-     14) فرم تماس (اعتبارسنجی ساده + پیام موفقیت)
-     توجه: این فرم فعلاً بک‌اند ندارد و فقط پیام تاییدیه نمایش می‌دهد.
-  ----------------------------------------------------- */
-function initContactForm() {
-
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('formStatus');
-
-    if (!form) return;
-
-
-    form.addEventListener('submit', async (e) => {
-
-      e.preventDefault();
-
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-
-
-      submitBtn.textContent = 'در حال ارسال...';
-      submitBtn.disabled = true;
-
-
-
-      const formData = new FormData(form);
-
-
-
-      try {
-
-
-        const response = await fetch(
-          'backend/contact/send.php',
-          {
-            method: 'POST',
-            body: formData
-          }
-        );
-
-
-
-        const result = await response.json();
-
-
-
-        if(result.status === "success"){
-
-
-          submitBtn.textContent = 'پیام ارسال شد ✓';
-
-
-          if(status){
-
-            status.textContent =
-            "پیام شما با موفقیت ارسال شد 🚀";
-
-            status.style.color = "green";
-
-          }
-
-
-          form.reset();
-
-
-
-        }else{
-
-
-          submitBtn.textContent = originalText;
-
-
-          if(status){
-
-            status.textContent =
-            "خطایی رخ داد، دوباره تلاش کنید";
-
-            status.style.color = "red";
-
-          }
-
-
-        }
-
-
-
-      } catch(error){
-
-
-        console.log(error);
-
-
-        submitBtn.textContent = originalText;
-
-
-        if(status){
-
-          status.textContent =
-          "خطا در اتصال به سرور";
-
-          status.style.color = "red";
-
-        }
-
-
-      }
-
-
-
-      setTimeout(()=>{
-
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-
-      },2500);
-
-
-
-    });
-
-}
-  /* -----------------------------------------------------
-     اجرای همه‌ی ماژول‌ها
-  ----------------------------------------------------- */
-  initLoader();
-  initThemeToggle();
-  initHeaderScroll();
-  initMobileMenu();
-  initActiveNav();
-  initTypingEffect();
-  initScrollReveal();
-  initCounters();
-  initSkillBars();
-  initFaq();
-  initBackToTop();
-  initLazyImages();
-  initSmoothScroll();
-  initContactForm();
-
-});
+})();
